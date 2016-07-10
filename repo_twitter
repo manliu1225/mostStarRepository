@@ -1,0 +1,23 @@
+
+
+import json;requests
+
+data=[]
+
+repo_twitter = requests.get("http://api.github.com/orgs/"+"twitter/"+"repos?per_page=100&page=1")
+raw_data=json.loads(repo_twitter.text)
+first_page_n=len(raw_data)
+
+for i in range(first_page_n):
+	data.append(raw_data[i])
+
+while first_page_n < 100:
+	j = 2
+	repo_twitter = requests.get("http://api.github.com/orgs/"+"twitter/"+"repos?per_page=100&page=j")
+	raw_data=json.loads(repo_twitter.text)
+	first_page_n=len(raw_data)
+
+	for k in range(first_page_n):
+		data.append(raw_data[k])
+
+	j = j+1
